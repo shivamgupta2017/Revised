@@ -1,5 +1,59 @@
 "use strict";
 app.controller('dashboardCtrl', function($scope, $location, $ionicSlideBoxDelegate, $cordovaPush, appConst, $ionicPopup, globalMethods, $translate, $ionicLoading, Services, $localStorage, $rootScope, $ionicHistory) {
+    
+    
+    
+     $scope.showPrompt = function() {
+     
+    //alert('hello');
+     $scope.item={};
+     
+        var promptPopup = $ionicPopup.show({
+        template:' <input type="text" placeholder="enter table no" ng-model="item.number">',
+         title: 'Table Number',
+         scope: $scope,
+       
+         inputPlaceholder: 'Enter your table no',
+          buttons : [
+          
+          {
+    text: '<b>Asign Table</b>',
+    type: 'button-positive',
+    onTap: function(e) 
+    {
+   
+       var pattern = /^\d+$/;
+      if (($scope.item.number==undefined)||(!pattern.test($scope.item.number))) 
+     { 
+        e.preventDefault();                     
+     } 
+     else {
+         return $scope.item;    
+          }
+     }         
+         } ]
+      });
+      promptPopup.then(function(res) {
+        $rootScope.popval=res.number;
+        //alert($rootScope.popval);
+        $rootScope.checkval=true;
+      });
+        
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     };
+    
+    
+    
     $scope.getCategories = function() {
         angular.element(document).ready(function() {
             $rootScope.cartCount = $localStorage.cart_list.length;
